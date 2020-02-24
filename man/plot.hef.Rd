@@ -6,11 +6,12 @@
 \usage{
 \method{plot}{hef}(x, y, ..., params = c("hyper", "ru", "pop"),
   which_pop = NULL, plot_type = NULL, one_plot = FALSE,
-  add_legend = FALSE, legend_position = "topright", legend_text = NULL,
-  num = 100)
+  add_legend = FALSE, legend_position = "topright",
+  legend_text = NULL, num = 100)
 }
 \arguments{
-\item{x}{an object of class "hef", a result of a call to \code{ru}.}
+\item{x}{an object of class "hef", a result of a call to
+\code{\link[rust]{ru}}.}
 
 \item{y}{Not used.}
 
@@ -29,7 +30,7 @@ parameterization used for ratio-of-uniforms sampling.}
     This produces a different plot to \code{params = "hyper"} if \code{ru}
     is used only on a subset of \eqn{\phi}.  For example, this may be
     the case if \code{x} is the result of a call to \code{\link{hanova1}}.
-    See vignette("revdbayes-anova-vignette", package = "bang") for
+    See vignette("bang-c-anova-vignette", package = "bang") for
     information.}
   \item{"pop": }{posterior samples and/or densities of the
     population-specific parameter \eqn{\theta} are plotted.  The

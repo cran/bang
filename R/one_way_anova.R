@@ -1,4 +1,4 @@
-# ================================== hanova1 ==================================
+# ================================== hanova1 ================================= #
 #
 #' Posterior sampling for a 1-way hierarchical ANOVA
 #'
@@ -74,7 +74,7 @@
 #'   Then, conditional on these values, population parameters are sampled
 #'   directly from the conditional posterior density of
 #'   \eqn{\theta}1, ..., \eqn{\theta}\eqn{I} given \eqn{\phi} and the data.
-#'   See the vignette("revdbayes-anova-vignette", package = "bang")
+#'   See the vignette("bang-c-anova-vignette", package = "bang")
 #'   for details.
 #'
 #'   The following priors are specified up to proportionality.
@@ -100,7 +100,9 @@
 #' \eqn{A_\alpha} and \eqn{A}, that is,
 #' \eqn{\pi(\sigma_\alpha, \sigma) =
 #'   1 / [(1 + \sigma_\alpha^2 / A_\alpha^2) (1 + \sigma^2 / A^2)].}
-#' [See Gelman (2006).]
+#' [See Gelman (2006).]  The scale parameters (\eqn{A_\alpha}, \eqn{A})
+#' are specified using \code{hpars} = (\eqn{A_\alpha}, \eqn{A}).
+#' The default setting is \code{hpars = c(10, 10).}
 #'
 #' \emph{Parameterizations for sampling:}
 #'
@@ -338,7 +340,7 @@ hanova1 <- function(n = 1000, resp, fac, ..., prior = "default", hpars = NULL,
   return(res)
 }
 
-# ========================== one_way_anova_cond_sim ===========================
+# ========================== one_way_anova_cond_sim ========================== #
 
 # Sample from the conditional posterior distribution of the population
 # parameters given the hyperparameters and the data
@@ -362,9 +364,7 @@ one_way_anova_cond_sim <- function(x, ds, n) {
   return(list(theta_sim_vals = theta_sim_vals))
 }
 
-# ================================== s1anova ==================================
-
-# Change name to r1anova_data()
+# ============================== hanova1_data ================================ #
 
 hanova1_data <- function(y) {
   #
@@ -373,6 +373,7 @@ hanova1_data <- function(y) {
   #
   # Args:
   #   y         : data.  I by max(ni) matrix, where ni is the number of
+  #               observations in group i
   #
   # Returns: a list containing the summary statistics
   #
@@ -382,14 +383,14 @@ hanova1_data <- function(y) {
   ni <- rowSums(!is.na(y))
   # The sum of the numbers of non-missing observations in the rows of x
   ndot <- sum(ni)
-  # Sum of data for each group
+  # Mean of data for each group
   ybari <- rowMeans(y, na.rm=TRUE)
   # Sum of squared deviations from group means
-  s <- sum((y - ybari)^2, na.rm = TRUE)
+  s <- sum((y - ybari) ^ 2, na.rm = TRUE)
   return(list(I = I, ni = ni, ndot = ndot, ybari = ybari, s = s))
 }
 
-# ============================= log_marg_lik_anova ============================
+# ============================= log_marg_lik_anova =========================== #
 
 log_marg_lik_anova <- function(x, I, ni, ndot, ybari, s) {
   #
@@ -421,7 +422,7 @@ log_marg_lik_anova <- function(x, I, ni, ndot, ybari, s) {
   return(log_lik)
 }
 
-# ============================= log_marg_lik_anova ============================
+# ============================= log_marg_lik_anova =========================== #
 
 two_d_log_marg_lik_anova <- function(x, I, ni, ndot, ybari, s, mu0, sigma0) {
   #
@@ -459,7 +460,7 @@ two_d_log_marg_lik_anova <- function(x, I, ni, ndot, ybari, s, mu0, sigma0) {
   return(log_lik)
 }
 
-# ================================= init1anova ================================
+# ================================= init1anova =============================== #
 
 # Change to REML?  ... to get SEs too? ... for use in trans = "BC" to get lambda.
 # Suggests lme4.
@@ -479,7 +480,7 @@ init1anova <- function(y) {
   return(init)
 }
 
-# ============================== make_resp_matrix =============================
+# ============================== make_resp_matrix ============================ #
 
 make_resp_matrix <- function(resp, fac) {
   #
@@ -492,8 +493,8 @@ make_resp_matrix <- function(resp, fac) {
   #          which the corresponding element of resp originates.
   #          Must have the same length as resp.
   # Returns:
-  #   A numeric matrix with number of rwos equal to the number of
-  #   levels of the factor face and number of columns equal to the largest
+  #   A numeric matrix with number of rows equal to the number of
+  #   levels of the factor fac and number of columns equal to the largest
   #   number of observations across the levels of fac.  Rows are padded with
   #   NAs as necessary.
   #
@@ -509,9 +510,7 @@ make_resp_matrix <- function(resp, fac) {
   return(mat)
 }
 
-# ================================= init1anova ================================
-
-# Create list of arguments for ru()
+# ======================== Create list of arguments for ru() ================= #
 
 one_way_anova_create_ru_list <- function(trans, rotate, param, anova_d) {
   d <- anova_d
@@ -558,7 +557,7 @@ three_d_one_way_anova_phi_to_theta <- function(phi) {
   return(c(phi[1], exp(phi[2:3])))
 }
 
-# ---------------------------- sim_pred_hanova1 ----------------------------- #
+# ============================= sim_pred_hanova1 ============================= #
 
 #' Simulate from a one-way hierarchical ANOVA posterior predictive distribution
 #'

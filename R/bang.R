@@ -15,10 +15,10 @@
 #' produce these samples.
 #'
 #' See
-#' vignette("bang-vignette", package = "bang") for a brief introduction
+#' vignette("bang-a-vignette", package = "bang") for a brief introduction
 #' to the package and
-#' vignette("revdbayes-anova-hef", package = "bang") and
-#' vignette("revdbayes-anova-vignette", package = "bang") for illustrations
+#' vignette("bang-b-hef-vignette", package = "bang") and
+#' vignette("bang-c-anova-vignette", package = "bang") for illustrations
 #' of the use of the \code{\link{hef}} and \code{\link{hanova1}} functions.
 #'
 #' @seealso \code{\link{hef}} for hierarchical exponential family models.
@@ -31,7 +31,6 @@
 #'
 #' @docType package
 #' @name bang
-#' @import methods
 #' @importFrom graphics plot
 #' @importFrom bayesplot ppc_stat
 #' @importFrom bayesplot ppc_stat_2d
@@ -132,12 +131,13 @@ NULL
 #' Column 4 is the simulation run number.
 #' @format A data frame with 270 rows and 4 columns.
 #'   \itemize{
-#'     \item{Column 1, index: }{anomaly of 2020-2049 mean relative to 1970-1999
-#'       mean.}
-#'     \item{Column 2, GCM: }{Abbreviated name of General Circulation Model.}
-#'     \item{Column 3, RCP: }{Representative Concentration Pathway. One of
-#'       rcp26, rcp45, rcp60, rcp85}
-#'     \item{Column 4, run: }{Simulation run number.}
+#'     \item{Column 1, \code{index}: }{anomaly of 2020-2049 mean relative to
+#'       the 1970-1999 mean.}
+#'     \item{Column 2, \code{GCM}: }{Abbreviated name of General Circulation
+#'       Model.}
+#'     \item{Column 3, \code{RCP}: }{Representative Concentration Pathway.
+#'       One of rcp26, rcp45, rcp60, rcp85.}
+#'     \item{Column 4, \code{run}: }{Simulation run number.}
 #'  }
 #' @source The raw data from which the indices are calculated are monthly
 #'   CMIP5 scenario runs for global surface air temperature (tas)
@@ -180,12 +180,13 @@ NULL
 #' Column 4 is the simulation run number.
 #' @format A data frame with 270 rows and 4 columns.
 #'   \itemize{
-#'     \item{Column 1, index: }{anomaly of 2069-2098 mean relative to 1970-1999
-#'       mean.}
-#'     \item{Column 2, GCM: }{Abbreviated name of General Circulation Model.}
-#'     \item{Column 3, RCP: }{Representative Concentration Pathway. One of
-#'       rcp26, rcp45, rcp60, rcp85}
-#'     \item{Column 4, run: }{Simulation run number.}
+#'     \item{Column 1, \code{index}: }{anomaly of 2069-2098 mean relative to
+#'       the 1970-1999 mean.}
+#'     \item{Column 2, \code{GCM}: }{Abbreviated name of General Circulation
+#'       Model.}
+#'     \item{Column 3, \code{RCP}: }{Representative Concentration Pathway.
+#'       One of rcp26, rcp45, rcp60, rcp85.}
+#'     \item{Column 4, \code{run}: }{Simulation run number.}
 #'  }
 #' @source The raw data from which the indices are calculated are monthly
 #'   CMIP5 scenario runs for global surface air temperature (tas)
@@ -202,3 +203,20 @@ NULL
 #'   \url{https://doi.org/10.1007/s10584-011-0148-z}
 "temp2"
 
+#' Weight Gained by Rats
+#'
+#' Data from an experiment to study weight gained by 10 rats fed on four different
+#' diets, defined by a combination of the amount of protein (low and high)
+#' and by the source of protein (beef and cereal).
+#'
+#' @format A data frame with 40 rows and 3 columns.
+#'   \itemize{
+#'     \item{Column 1, \code{source}: }{source of protein, a factor with levels
+#'       \code{Beef} and \code{Cereal}.}
+#'     \item{Column 2, \code{type}: }{amount of protein, a factor with levels
+#'       \code{High} and \code{Low}.}
+#'     \item{Column 3, \code{weightgain}: }{weight gained, in grams.}
+#'  }
+#' @source D. J. Hand, A. D. Lunn, K. J. McConway, and E. Ostrowski (1994).
+#'   \emph{A Handbook of Small Datasets}, Chapman and Hall/CRC, London.
+"weight_gain"

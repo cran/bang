@@ -5,8 +5,8 @@
 \title{Posterior sampling for a 1-way hierarchical ANOVA}
 \usage{
 hanova1(n = 1000, resp, fac, ..., prior = "default", hpars = NULL,
-  param = c("trans", "original"), init = NULL, mu0 = 0, sigma0 = Inf,
-  nrep = NULL)
+  param = c("trans", "original"), init = NULL, mu0 = 0,
+  sigma0 = Inf, nrep = NULL)
 }
 \arguments{
 \item{n}{A numeric scalar.  The size of posterior sample required.}
@@ -108,7 +108,7 @@ Consider \eqn{I} independent experiments in which the \eqn{ni} responses
   Then, conditional on these values, population parameters are sampled
   directly from the conditional posterior density of
   \eqn{\theta}1, ..., \eqn{\theta}\eqn{I} given \eqn{\phi} and the data.
-  See the vignette("revdbayes-anova-vignette", package = "bang")
+  See the vignette("bang-c-anova-vignette", package = "bang")
   for details.
 
   The following priors are specified up to proportionality.
@@ -134,7 +134,9 @@ for \eqn{\sigma_\alpha > 0} and \eqn{\sigma > 0}.
 \eqn{A_\alpha} and \eqn{A}, that is,
 \eqn{\pi(\sigma_\alpha, \sigma) =
   1 / [(1 + \sigma_\alpha^2 / A_\alpha^2) (1 + \sigma^2 / A^2)].}
-[See Gelman (2006).]
+[See Gelman (2006).]  The scale parameters (\eqn{A_\alpha}, \eqn{A})
+are specified using \code{hpars} = (\eqn{A_\alpha}, \eqn{A}).
+The default setting is \code{hpars = c(10, 10).}
 
 \emph{Parameterizations for sampling:}
 

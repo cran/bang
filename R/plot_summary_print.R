@@ -4,7 +4,8 @@
 #'
 #' \code{plot} method for class "hef".
 #'
-#' @param x an object of class "hef", a result of a call to \code{ru}.
+#' @param x an object of class "hef", a result of a call to
+#'   \code{\link[rust]{ru}}.
 #' @param y Not used.
 #' @param ... Additional arguments passed to \code{\link[rust]{plot.ru}},
 #'   \code{\link[graphics]{hist}} or \code{\link[graphics]{pairs}}.
@@ -20,7 +21,7 @@
 #'      This produces a different plot to \code{params = "hyper"} if \code{ru}
 #'      is used only on a subset of \eqn{\phi}.  For example, this may be
 #'      the case if \code{x} is the result of a call to \code{\link{hanova1}}.
-#'      See vignette("revdbayes-anova-vignette", package = "bang") for
+#'      See vignette("bang-c-anova-vignette", package = "bang") for
 #'      information.}
 #'    \item{"pop": }{posterior samples and/or densities of the
 #'      population-specific parameter \eqn{\theta} are plotted.  The
@@ -106,7 +107,6 @@ plot.hef <- function(x, y, ..., params = c("hyper", "ru", "pop"),
     params <- "pop"
   }
   # Save par settings so that we can reset them on exit
-  old_par <- graphics::par(no.readonly = TRUE)
   user_args <- list(...)
   # Use plot.ru() to plot the simulated hyperparameter values
   if (params == "hyper") {
@@ -116,7 +116,6 @@ plot.hef <- function(x, y, ..., params = c("hyper", "ru", "pop"),
     }
     class(for_ru) <- "ru"
     plot(for_ru, ...)
-    graphics::par(old_par)
     return(invisible())
   }
   if (params == "ru" ) {
@@ -124,7 +123,6 @@ plot.hef <- function(x, y, ..., params = c("hyper", "ru", "pop"),
     for_ru$sim_vals <- for_ru$sim_vals[, for_ru$ru]
     class(for_ru) <- "ru"
     plot(for_ru, ...)
-    graphics::par(old_par)
     return(invisible())
   }
   # Otherwise, plot population values
@@ -174,7 +172,6 @@ plot.hef <- function(x, y, ..., params = c("hyper", "ru", "pop"),
     } else {
       graphics::pairs(plot_data, ...)
     }
-    graphics::par(old_par)
     return(invisible())
   }
   # If we need estimates of marginal posterior densities
@@ -186,7 +183,8 @@ plot.hef <- function(x, y, ..., params = c("hyper", "ru", "pop"),
   }
   # Set the number of rows and columns in the plot
   rc <- n2mfrow(n_pop)
-  graphics::par(mfrow = rc)
+  oldpar <- graphics::par(mfrow = rc)
+  on.exit(graphics::par(oldpar))
   pairwise_hist <- function(x, ..., xlab, ylab, main) {
     for (i in 1:n_pop) {
       graphics::hist(x[, i], prob = TRUE, main = my_main[i], xlab = my_xlab[i],
@@ -228,7 +226,6 @@ plot.hef <- function(x, y, ..., params = c("hyper", "ru", "pop"),
                               add_legend = add_legend, ...),
          both = pairwise_hist_dens(plot_data, post_dens, ...)),
          silent = FALSE)
-  graphics::par(old_par)
   return(invisible())
 }
 
@@ -336,16 +333,17 @@ pde_anova1 <- function(x, which_pop, num) {
 #'
 #' \code{summary} method for class "hef".
 #'
-#' @param object an object of class "hef", a result of a call to \code{hef}.
+#' @param object an object of class "hef", a result of a call to
+#'   \code{\link{hef}}.
 #' @param ... Additional arguments passed on to \code{\link[rust]{summary.ru}}.
 #' @param params A character scalar.
 #'
-#'   If \code{params = "hyper"} then the posterior samples of all hyperparameter
-#'   values in \eqn{\phi} are summarized using \code{\link[rust]{summary.ru}}.
+#'   If \code{params = "hyper"} then the posterior samples of all
+#'   hyperparameter values in \eqn{\phi} are summarized using
+#'   \code{\link[rust]{summary.ru}}.
 #'
 #'   If \code{params = "pop"} then only posterior samples of the populations
-#'   specified in \code{which_pop} are summarized.  The summary is returned
-#'   invisibly.
+#'   specified in \code{which_pop} are summarized.
 #'
 #' @param which_pop An integer vector.  If \code{params = "pop"} then
 #'   \code{which_pop} indicates which populations, i.e. which columns
@@ -371,15 +369,44 @@ summary.hef <- function(object, ..., params = c("hyper", "pop"),
     for_ru <- object
     class(for_ru) <- "ru"
     posterior_summary <- summary(for_ru, ...)
-    return(invisible(posterior_summary))
+    class(posterior_summary) <- c("summary.hef", "summary.ru")
   } else {
     posterior_summary <- summary(object$theta_sim_vals[, which_pop,
                                                        drop = FALSE])
+    class(posterior_summary) <- c("summary.hef", "table")
   }
   return(posterior_summary)
 }
 
-# =============================== print.confint ===============================
+# ============================= print.summary.hef =============================
+
+#' Print method for objects of class "summary.hef"
+#'
+#' \code{print} method for class "summary.hef".
+#'
+#' @param x an object of class "summary.hef", a result of a call to
+#'   \code{\link{summary.hef}}.
+#' @param ... Additional optional arguments to be passed to
+#'   \code{\link{print}}.
+#' @details What is printed depends on the argument \code{params} supplied
+#'   to \code{\link{summary.hef}}.
+#' @return The argument \code{x}, invisibly, as for all \code{\link{print}}
+#'   methods.
+#' @seealso \code{\link{summary.hef}}: \code{summary} method for class "hef".
+#' @seealso \code{\link{hef}} for hierarchical exponential family models.
+#' @seealso \code{\link{hanova1}} for hierarchical one-way analysis of
+#'   variance (ANOVA).
+#' @export
+print.summary.hef <- function(x, ...) {
+  if (!inherits(x, "summary.hef")) {
+    stop("use only with \"summary.hef\" objects")
+  }
+  class(x) <- class(x)[2]
+  print(x, ...)
+  invisible(x)
+}
+
+# ================================= print.hef =================================
 
 #' Print method for objects of class "hef"
 #'
@@ -390,7 +417,7 @@ summary.hef <- function(object, ..., params = c("hyper", "pop"),
 #' @param ... Additional optional arguments. At present no optional
 #'   arguments are used.
 #' @details Prints the original call to \code{\link{hef}} or
-#'   \code{link{hanova1}}, the name of the model and the number of populations
+#'   \code{\link{hanova1}}, the name of the model and the number of populations
 #'   in the hierarchical model.
 #' @return The argument \code{x}, invisibly, as for all \code{\link{print}}
 #'   methods.

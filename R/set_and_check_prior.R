@@ -10,8 +10,9 @@
 #' @param ... Further arguments giving the names and values of any
 #'   parameters involved in the function \code{prior}.
 #' @param model A character string.  Abbreviated name of the model:
-#'   "beta_binom" for beta-binomial, "gamma_pois" for gamma-Poisson,
-#'   "anova1" for 1-way ANOVA.
+#'   "beta_binom" for beta-binomial and "gamma_pois" for gamma-Poisson
+#'   (see \code{\link{hef}}), "anova1" for 1-way ANOVA (see
+#'   \code{\link{hanova1}}).
 #' @param anova_d An integer scalar.  Only relevant if \code{model = anova1}.
 #'   If \code{anova_d = 2} then \code{prior} must return the log-prior
 #'   density for the standard deviations \eqn{(\sigma_\alpha, \sigma)}
@@ -76,6 +77,10 @@ check_prior <- function(prior, model, hpars, n_groups = NULL) {
         prior$hpars <- hpars
         if (is.null(hpars)) {
           prior$hpars <- anova1_cauchy_hpars()
+        } else {
+          if (any(hpars <= 0)) {
+            stop("The values in 'hpars' must be positive")
+          }
         }
       }
     }
@@ -89,6 +94,10 @@ check_prior <- function(prior, model, hpars, n_groups = NULL) {
         prior$hpars <- hpars
         if (is.null(hpars)) {
           prior$hpars <- beta_gamma_hpars()
+        } else {
+          if (any(hpars <= 0)) {
+            stop("The values in 'hpars' must be positive")
+          }
         }
       }
     }
@@ -101,6 +110,10 @@ check_prior <- function(prior, model, hpars, n_groups = NULL) {
         prior$hpars <- hpars
         if (is.null(hpars)) {
           prior$hpars <- gamma_gamma_hpars()
+        } else {
+          if (any(hpars <= 0)) {
+            stop("The values in 'hpars' must be positive")
+          }
         }
       }
     }

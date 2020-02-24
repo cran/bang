@@ -8,18 +8,19 @@
   which_pop = 1:ncol(object$theta_sim_vals))
 }
 \arguments{
-\item{object}{an object of class "hef", a result of a call to \code{hef}.}
+\item{object}{an object of class "hef", a result of a call to
+\code{\link{hef}}.}
 
 \item{...}{Additional arguments passed on to \code{\link[rust]{summary.ru}}.}
 
 \item{params}{A character scalar.
 
-  If \code{params = "hyper"} then the posterior samples of all hyperparameter
-  values in \eqn{\phi} are summarized using \code{\link[rust]{summary.ru}}.
+  If \code{params = "hyper"} then the posterior samples of all
+  hyperparameter values in \eqn{\phi} are summarized using
+  \code{\link[rust]{summary.ru}}.
 
   If \code{params = "pop"} then only posterior samples of the populations
-  specified in \code{which_pop} are summarized.  The summary is returned
-  invisibly.}
+  specified in \code{which_pop} are summarized.}
 
 \item{which_pop}{An integer vector.  If \code{params = "pop"} then
 \code{which_pop} indicates which populations, i.e. which columns

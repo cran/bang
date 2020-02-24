@@ -5,7 +5,8 @@
 \alias{pp_check}
 \title{Posterior predictive checks for a hef object}
 \usage{
-\method{pp_check}{hef}(object, fun = NULL, raw = FALSE, nrep = NULL, ...)
+\method{pp_check}{hef}(object, fun = NULL, raw = FALSE, nrep = NULL,
+  ...)
 }
 \arguments{
 \item{object}{An object of class "hef", a result of a call to
@@ -54,8 +55,7 @@ For details of these functions see \link[bayesplot]{PPC-overview}.
   The general idea is to compare the observed data \code{object$data}
   with a matrix \code{object$data_rep} in which each row is a
   replication of the observed data simulated from the posterior predictive
-  distribution.  For greater detail see Chapter 6 of
-  \href{www.stat.columbia.edu/~gelman/book}{Gelman et al. (2014)}.
+  distribution.  For greater detail see Chapter 6 of Gelman et al. (2013).
 }
 \examples{
 ############################ Beta-binomial #################################
@@ -66,13 +66,13 @@ rat_res <- hef(model = "beta_binom", data = rat, nrep = 50)
 
 # Overlaid density estimates
 pp_check(rat_res)
-\dontrun{
+\donttest{
 # Overlaid distribution function estimates
 pp_check(rat_res, fun = "ecdf_overlay")
 }
 # Multiple histograms
 pp_check(rat_res, fun = "hist", nrep = 8)
-\dontrun{
+\donttest{
 # Multiple boxplots
 pp_check(rat_res, fun = "boxplot")
 # Predictive medians vs observed median
@@ -87,7 +87,7 @@ pp_check(rat_res, fun = "stat_2d", stat = c("mean", "sd"))
 
 pump_res <- hef(model = "gamma_pois", data = pump, nrep = 50)
 
-\dontrun{
+\donttest{
 # Overlaid density estimates
 pp_check(pump_res)
 # Predictive (mean, sd) vs observed (mean, sd)
@@ -100,7 +100,7 @@ pp_check(pump_res, fun = "stat_2d", stat = c("mean", "sd"))
 
 RCP26_2 <- temp2[temp2$RCP == "rcp26", ]
 temp_res <- hanova1(resp = RCP26_2[, 1], fac = RCP26_2[, 2], nrep = 50)
-\dontrun{
+\donttest{
 # Overlaid density estimates
 pp_check(temp_res)
 # Predictive (mean, sd) vs observed (mean, sd)
@@ -114,8 +114,8 @@ Models. R package version 1.1.0.
 
 Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B.,
 Vehtari, A., and Rubin, D. B. (2013). \emph{Bayesian Data Analysis}.
-Chapman & Hall/CRC Press, London, third edition. (Chapter 6)
-\url{www.stat.columbia.edu/~gelman/book}
+Chapman & Hall/CRC Press, London, third edition. (Chapter 6).
+\url{http://www.stat.columbia.edu/~gelman/book/}
 }
 \seealso{
 \code{\link{hef}} and \code{\link{hanova1}} for sampling

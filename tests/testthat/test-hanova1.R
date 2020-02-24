@@ -12,17 +12,17 @@ my_tol <- 1e-5
 
 three_d_case_fn <- function(x, alpha, resp, fac) {
   #
-  # Calculates the value of the beta-binomial marginal log-likelihood
-  # at x = (alpha, beta) based on data matrix data using the obvious
-  # coding and non-obvious coding.
+  # Calculates the value of the one-way ANOVA marginal log-likelihood
+  # at x = (mu, sigma_alpha, sigma) based on data matrix data using the
+  # obvious coding and non-obvious coding.
   #
   # Args:
   #      x : A numeric vector.  c(mu, sigma_alpha, sigma)
   #  alpha : A numeric vector. c(alpha_1, ..., alpha_I)
   #   resp : A numeric vector.  Response values.
   #    fac : A vector of class \link{factor} indicating the group from
-  #'         which the correspnding element of \code{resp} originates.
-  #'         Must have the same length as \code{resp}.
+  #          which the corresponding element of \code{resp} originates.
+  #          Must have the same length as \code{resp}.
   #
   # Returns:
   #   A list with two components:

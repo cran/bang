@@ -22,7 +22,7 @@ The argument \code{x}, invisibly, as for all \code{\link{print}}
 }
 \details{
 Prints the original call to \code{\link{hef}} or
-  \code{link{hanova1}}, the name of the model and the number of populations
+  \code{\link{hanova1}}, the name of the model and the number of populations
   in the hierarchical model.
 }
 \seealso{
