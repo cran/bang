@@ -7,7 +7,7 @@
 #'
 #' @param n A numeric scalar.  The size of posterior sample required.
 #' @param resp A numeric vector.  Response values.
-#' @param fac A vector of class \link{factor} indicating the group from
+#' @param fac A vector of class \code{\link{factor}} indicating the group from
 #'   which the corresponding element of \code{resp} originates.
 #'   Must have the same length as \code{resp}.
 #' @param prior The log-prior for the parameters of the hyperprior
@@ -196,7 +196,7 @@
 #'  Chapman & Hall / CRC.
 #' @references Gelman, A. (2006) Prior distributions for variance
 #'   parameters in hierarchical models. \emph{Bayesian Analysis},
-#'   \strong{1}(3), 515-533. \url{https://doi.org/10.1214/06-BA117A}.
+#'   \strong{1}(3), 515-533. \doi{10.1214/06-BA117A}.
 #' @export
 hanova1 <- function(n = 1000, resp, fac, ..., prior = "default", hpars = NULL,
                     param = c("trans", "original"), init = NULL,

@@ -1,3 +1,13 @@
+# bang 1.0.2
+
+## Bug fixes and minor improvements
+
+* In `beta_init_ests()` the initial estimate of `beta` has been corrected in the case `vp > mp * (1 - mp)`, where `vp` and `mp` are respectively the sample variance and sample mean of the input probabilities. Thank you to Thomas Richardson for spotting this.
+
+* Create the help file for the package correctly, with alias bang-package.
+
+* Activated 3rd edition of the `testthat` package
+
 # bang 1.0.1
 
 ## Bug fixes and minor improvements

@@ -4,16 +4,26 @@
 \alias{hanova1}
 \title{Posterior sampling for a 1-way hierarchical ANOVA}
 \usage{
-hanova1(n = 1000, resp, fac, ..., prior = "default", hpars = NULL,
-  param = c("trans", "original"), init = NULL, mu0 = 0,
-  sigma0 = Inf, nrep = NULL)
+hanova1(
+  n = 1000,
+  resp,
+  fac,
+  ...,
+  prior = "default",
+  hpars = NULL,
+  param = c("trans", "original"),
+  init = NULL,
+  mu0 = 0,
+  sigma0 = Inf,
+  nrep = NULL
+)
 }
 \arguments{
 \item{n}{A numeric scalar.  The size of posterior sample required.}
 
 \item{resp}{A numeric vector.  Response values.}
 
-\item{fac}{A vector of class \link{factor} indicating the group from
+\item{fac}{A vector of class \code{\link{factor}} indicating the group from
 which the corresponding element of \code{resp} originates.
 Must have the same length as \code{resp}.}
 
@@ -213,7 +223,7 @@ Gelman, A., Carlin, J. B., Stern, H. S. Dunson, D. B.,
 
 Gelman, A. (2006) Prior distributions for variance
   parameters in hierarchical models. \emph{Bayesian Analysis},
-  \strong{1}(3), 515-533. \url{https://doi.org/10.1214/06-BA117A}.
+  \strong{1}(3), 515-533. \doi{10.1214/06-BA117A}.
 }
 \seealso{
 The \code{\link[rust]{ru}} function in the \code{\link{rust}}

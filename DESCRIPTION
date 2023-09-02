@@ -1,7 +1,7 @@
 Package: bang
 Title: Bayesian Analysis, No Gibbs
-Version: 1.0.1
-Date: 2020-02-24
+Version: 1.0.2
+Date: 2023-09-02
 Authors@R: c(person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
   role = c("aut", "cre", "cph")), 
   person(c("Benjamin", "D."), "Hall", email = "benjamin.hall.16@ucl.ac.uk",
@@ -17,19 +17,20 @@ Description: Provides functions for the Bayesian analysis of some simple
     analysis of variance (ANOVA).
 Depends: R (>= 3.3.0)
 Imports: bayesplot (>= 1.1.0), graphics, rust (>= 1.2.2), stats
-RoxygenNote: 6.1.1
+RoxygenNote: 7.2.3
 Suggests: ggplot2 (>= 2.2.1), knitr, MASS, rmarkdown, testthat
 VignetteBuilder: knitr
 URL: https://paulnorthrop.github.io/bang/,
-        http://github.com/paulnorthrop/bang
-BugReports: http://github.com/paulnorthrop/bang/issues
+        https://github.com/paulnorthrop/bang
+BugReports: https://github.com/paulnorthrop/bang/issues
 License: GPL (>= 2)
 LazyData: true
 Encoding: UTF-8
+Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2020-02-24 09:18:33 UTC; paul
+Packaged: 2023-09-02 21:23:32 UTC; paul
 Author: Paul J. Northrop [aut, cre, cph],
   Benjamin D. Hall [aut, cph]
 Maintainer: Paul J. Northrop <p.northrop@ucl.ac.uk>
 Repository: CRAN
-Date/Publication: 2020-02-24 12:50:02 UTC
+Date/Publication: 2023-09-02 21:40:03 UTC
