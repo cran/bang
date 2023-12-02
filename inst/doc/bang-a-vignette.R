@@ -1,8 +1,8 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 set.seed(47)
 
-## ---- fig.align = 'center', fig.width = 7, fig.height = 7---------------------
+## ----fig.align = 'center', fig.width = 7, fig.height = 7----------------------
 library(bang)
 # To produce a plot akin to Figure 5.3 of Gelman et al. (2014) we
 # (a) Use the same prior for (alpha, beta)

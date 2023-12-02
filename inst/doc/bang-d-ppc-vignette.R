@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 set.seed(47)
 
@@ -17,7 +17,7 @@ pump_res <- hef(model = "gamma_pois", data = pump, nrep = 50)
 RCP26_2 <- temp2[temp2$RCP == "rcp26", ]
 temp_res <- hanova1(resp = RCP26_2[, 1], fac = RCP26_2[, 2], nrep = 50)
 
-## ---- fig.show='hold', fig.width = 3.45, fig.height = 3.45--------------------
+## ----fig.show='hold', fig.width = 3.45, fig.height = 3.45---------------------
 library(bayesplot)
 library(ggplot2)
 # Overlaid density estimates
@@ -25,25 +25,25 @@ pp_check(rat_res)
 # Overlaid distribution function estimates
 pp_check(rat_res, fun = "ecdf_overlay")
 
-## ---- fig.show='hold', fig.width = 7, fig.height = 5--------------------------
+## ----fig.show='hold', fig.width = 7, fig.height = 5---------------------------
 # Multiple histograms
 pp_check(rat_res, fun = "hist", nrep = 8)
 # Multiple boxplots
 pp_check(rat_res, fun = "boxplot")
 
-## ---- fig.show='hold', fig.width = 7, fig.height = 5--------------------------
+## ----fig.show='hold', fig.width = 7, fig.height = 5---------------------------
 # Predictive medians vs observed median
 pp_check(rat_res, fun = "stat", stat = "median")
 # Predictive (mean, sd) vs observed (mean, sd)
 pp_check(rat_res, fun = "stat_2d", stat = c("mean", "sd"))
 
-## ---- fig.show='hold', fig.width = 7, fig.height = 5--------------------------
+## ----fig.show='hold', fig.width = 7, fig.height = 5---------------------------
 # Overlaid density estimates
 pp_check(pump_res)
 # Predictive (mean, sd) vs observed (mean, sd)
 pp_check(pump_res, fun = "stat_2d", stat = c("mean", "sd"))
 
-## ---- fig.show='hold', fig.width = 7, fig.height = 5--------------------------
+## ----fig.show='hold', fig.width = 7, fig.height = 5---------------------------
 # Overlaid density estimates
 pp_check(temp_res)
 # Predictive (mean, sd) vs observed (mean, sd)
